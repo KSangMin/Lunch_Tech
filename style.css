@@ -1,0 +1,26 @@
+body{
+    background-color:#FBE5D6;
+}
+
+.startButton{
+    background-color:transparent;
+    width: 250px;
+    height: 80px;
+    padding: 0;
+    border: 0;
+    margin: auto;
+    margin-top: 150px;
+    display: block;
+}
+
+.outer{
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+.inner{
+    position: absolute;
+    transform: translate(-50%,0%);
+    left: 50%;
+    top: 20%;
+}
