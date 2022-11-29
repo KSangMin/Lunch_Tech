@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="ko">
+    <head>
+        <link rel="stylesheet" href="main_style.css">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Yeon+Sung&display=swap" rel="stylesheet">
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Lunch Tech</title>
+    </head>
+
+    <body>
+        <div id="inner">
+            <img id="logo" style="width:700px; height: 200px; display: block;" src="image/Logo_2.png">
+            <div id="intro" style="font-family: 'Yeon Sung', cursive; font-size: 25pt; color:rgb(105, 0, 24);text-align : center;">
+                오늘 점심 뭐 먹지?<br>
+                매일 먹어야 하는 점심, 학식은 질리고…<br>
+                <br>
+                미래관 근처 맛집을 찾아보자!
+
+            </div>
+            <button id ="startButton" onclick="pushStartButton()" style="cursor:pointer">
+                <img src="image/StartButton_2.png" style="width:230px; height: 80px;">
+            </button>
+
+            <div id="condition"><form action ="/random" method ="post"> 
+                <div>딱 두 가지 질문에만 대답해보세요.</div>
+                <h2>식사 시간은 얼마나 있나요?</h2>
+                <input type="radio" name="time" value=0 checked> 1시간 이상
+                <input type="radio" name="time" value=1> 2시간 이상
+
+                <h2>가격은 얼마가 좋을까요?</h2>
+                <input type="radio" name="price" value=0 checked> 6000원 이하
+                <input type="radio" name="price" value=1> 9000원 이하
+                <input type="radio" name="price" value=2> 9000원 초과
+                <br><br>
+                <input type = 'image' src="image/SearchButton_2.png" style="width:300px; height: 60px;">
+                <!--a href="introduction.html" onclick="getTime();getPrice();"><img src="image/SearchButton_2.png" style="width:300px; height: 60px;"></a-->
+            </form></div>
+        </div>
+
+        <script type="text/javascript" src ="main.js"></script>
+    </body>
+</html>
