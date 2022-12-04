@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="ko">
+    <head>
+        <link rel="stylesheet" href="introduction_style.css">
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Lunch Tech</title>
+    </head>
+
+    <body>
+        <header><img src="image/Logo_4.png" style="height:50px; width:300px"></header><hr>
+        <p id="title"><%=data[0].rest_name%> (별점: <%=data[0].star%>점 / 5점)</p>
+        <div style="width:1000px">
+            <img src="<%=data[0].image%>" onerror='this.src ="image/temp.jpg"' style="width:300px; height:300px">
+            <div id="map" style="float:right; width:350px;height:350px;"></div>
+        </div>
+        
+        <div>메뉴</div>
+        <ul>
+            <%let i = 1;%>
+            <%for(i ; i < data.length ; i++) {%>
+                <%if (!('menu' in data[i])) break;%>
+                <li><%=data[i].menu%><%=data[i].price%></li>
+            <%}%>
+        </ul>
+        
+        <div>리뷰</div>
+        <ul> 
+            <%for(i ; i < data.length ; i++) {%>
+                <%if (!('review_text' in data[i])) break;%>
+                <%let ratio = (data[i].review_star*20)%>
+                <%let ratio2 = 100 - ratio%>
+                <%let st = "width: " + ratio + "px"%>
+                <%let st2 = "width: " + ratio2 + "px"%>
+                <li>
+                    <div class ="star" style="<%=st%>"><img id="star_1" src="image/Star.png"></div>
+                    <div class ="star" style="<%=st2%>"><img id="star_1" src="image/Star_2.png"></div><%=data[i].review_star%>점<br><%=data[i].review_text%>
+                </li> 
+            <%}%>
+        </ul>
+        
+        <div>댓글</div>
+        <form action="/comment" method="post">
+            <input type="hidden" name="rest_name" value="<%=data[0].rest_name%>">
+            <input type="text" name="name" value="익명">
+            <input type="text" name="text" value="">
+            <input type="submit" value="등록">
+        </form>
+        <ul> 
+            <%for(i ; i < data.length ; i++) {%>
+                <%if (!('comment_text' in data[i])) break;%>
+                <li>
+                    <%=data[i].user_id%><%=data[i].comment_text%>
+                </li>
+            <%}%>
+        </ul>
+
+        <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=a5f46b36eb244a5f47ad016651c7a4a1&libraries=services"></script>
+        <script>
+            let addr = "<%=data[0].address%>";
+            let name = "<%=data[0].rest_name%>"
+            console.log(addr);
+
+            var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
+            mapOption = {
+                center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
+                level: 4 // 지도의 확대 레벨
+            };  
+            // 지도를 생성합니다    
+            var map = new kakao.maps.Map(mapContainer, mapOption); 
+
+            // 주소-좌표 변환 객체를 생성합니다
+            var geocoder = new kakao.maps.services.Geocoder();
+            // 주소로 좌표를 검색합니다
+            geocoder.addressSearch(addr, function(result, status) {
+                // 정상적으로 검색이 완료됐으면 
+                if (status === kakao.maps.services.Status.OK) {
+                    var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
+                    
+                    console.log(result[0].y, result[0].x)
+
+                    // 결과값으로 받은 위치를 마커로 표시합니다
+                    var marker = new kakao.maps.Marker({
+                        map: map,
+                        position: coords
+                    });
+
+                    // 인포윈도우로 장소에 대한 설명을 표시합니다
+
+
+                    // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
+                    map.setCenter(coords);
+                } 
+            });    
+		    
+        </script>
+        <script type="text/javascript" src="introduction.js"></script>
+    </body>
+</html>
