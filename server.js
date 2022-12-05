@@ -6,6 +6,7 @@ const session = require('express-session');
 const bodyParser = require('body-parser');
 const ejs = require('ejs');
 const { request, response } = require('express');
+
 const PORT = 52272;
 
 // 서버를 생성/실행합니다.
@@ -22,12 +23,16 @@ const connection = mysql.createConnection({// mysql 연동
 });
 
 app.listen(PORT, () => {
-    console.log('Server Running at http://127.0.0.1:' + PORT);
+    console.log(`Server Running at http://127.0.0.1:${PORT}`);
 });
 
 app.get("/", function(request, response){
-    response.sendFile(__dirname + "/webpage/main.html")
+    response.redirect("/main");
 });
+
+app.get("/main", function(request, response){
+    response.sendFile(__dirname + "/webpage/main.html")
+})
 
 let result = '';
 
@@ -233,7 +238,7 @@ app.post("/comment", function(request, response){
         })
         response.render(__dirname + "/webpage/introduction.ejs", {data : outcome});*/
 
-        response.redirect("/lntroduction");
+        response.redirect("/introduction");
     })
 });
 
