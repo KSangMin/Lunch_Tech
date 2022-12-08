@@ -67,7 +67,7 @@
         <table> 
             <%for(i ; i < data.length ; i++) {%>
                 <%if (!('comment_text' in data[i])) break;%>
-                <tr style="font-family: 'Noto Serif KR', serif; font-size: 16px; border-top: 1px solid black">
+                <tr style="font-family: 'Noto Serif KR', serif; font-size: 16px">
                     <td style="width: 105px; font-weight: bold;"><%=data[i].user_id%></td><td><%=data[i].comment_text%></td>
                 </tr>
             <%}%>
