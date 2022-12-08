@@ -2,80 +2,98 @@
 <html lang="ko">
     <head>
         <link rel="stylesheet" href="introduction_style.css">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Do+Hyeon&family=Noto+Serif+KR&family=Hahmlet:wght@500&display=swap" rel="stylesheet">
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Lunch Tech</title>
     </head>
 
     <body>
-        <header>
+        <header><!--로고-->
             <form action ="/main" method ="get"><input type= "image" src="image/Logo_4.png" style="height:50px; width:300px"></form>
         </header><hr>
-        <p id="title"><%=data[0].rest_name%> (별점: <%=data[0].star%>점 / 5점)</p>
+        <!--식당 이름, 별점-->
+        <%let ratio = (data[0].star*20)%>
+        <%let ratio2 = 102 - ratio%>
+        <%let st = "width: " + ratio + "px"%>
+        <%let st2 = "width: " + ratio2 + "px"%>
+        <div id="title" style="font-family: 'Do Hyeon', sans-serif; font-size:30px"><%=data[0].rest_name%></div>
+        <div>
+            <div class ="star" style="<%=st%>"><img id="star_1" src="image/Star.png"></div>
+            <div class ="star" style="transform: scaleX(-1); <%=st2%>"><img id="star_2" src="image/Star_2.png"></div>
+            <div style="font-family: 'Do Hyeon', sans-serif; font-size:20px; margin-left: 105px;"><%=data[0].star%>점</div>
+        </div>
+        <!--식당 사진, 지도-->
         <div style="width:1000px">
             <img src="<%=data[0].image%>" onerror='this.src ="image/temp.jpg"' style="width:300px; height:300px">
-            <div id="map" style="float:right; width:350px;height:350px;"></div>
+            <div id="map" style="float:right; width:380px;height:380px;"></div>
         </div>
-        
-        <div>메뉴</div>
-        <ul>
+        <!--메뉴-->
+        <div style="font-family: 'Hahmlet', serif; font-size: 20px;">메뉴</div>
+        <table>
             <%let i = 1;%>
             <%for(i ; i < data.length ; i++) {%>
                 <%if (!('menu' in data[i])) break;%>
-                <li><%=data[i].menu%><%=data[i].price%></li>
+                <tr style="font-family: 'Noto Serif KR', serif; font-size: 16px;">
+                    <td><%=data[i].menu%></td><td style="padding-left: 10px"><%=data[i].price%>원</td>
+                </tr>
             <%}%>
-        </ul>
-        
-        <div>리뷰</div>
-        <ul> 
+        </table>
+        <br><!--리뷰-->
+        <div style="font-family: 'Hahmlet', serif; font-size: 20px;">리뷰</div>
+         
             <%for(i ; i < data.length ; i++) {%>
                 <%if (!('review_text' in data[i])) break;%>
                 <%let ratio = (data[i].review_star*20)%>
-                <%let ratio2 = 100 - ratio%>
+                <%let ratio2 = 102 - ratio%>
                 <%let st = "width: " + ratio + "px"%>
                 <%let st2 = "width: " + ratio2 + "px"%>
-                <li>
+                <table><tr><td style="font-family: 'Noto Serif KR', serif; font-size: 16px;">
                     <div class ="star" style="<%=st%>"><img id="star_1" src="image/Star.png"></div>
-                    <div class ="star" style="<%=st2%>"><img id="star_1" src="image/Star_2.png"></div><%=data[i].review_star%>점<br><%=data[i].review_text%>
-                </li> 
+                    <div class ="star" style="transform: scaleX(-1); <%=st2%>"><img id="star_1" src="image/Star_2.png"></div><%=data[i].review_star%>점<br><%=data[i].review_text%>
+                </td></tr></table> 
             <%}%>
-        </ul>
         
-        <div>댓글</div>
+        <hr><!--댓글-->
+        <div style="font-family: 'Hahmlet', serif; font-size: 20px;">댓글</div>
         <form action="/comment" method="post">
             <input type="hidden" name="rest_name" value="<%=data[0].rest_name%>">
-            <input type="text" name="name" value="익명">
-            <input type="text" name="text" value="">
+            <input type="text" name="name" value="익명" size="10">
+            <input type="text" name="text" value="" size="58">
             <input type="submit" value="등록">
         </form>
-        <ul> 
+        <table> 
             <%for(i ; i < data.length ; i++) {%>
                 <%if (!('comment_text' in data[i])) break;%>
-                <li>
-                    <%=data[i].user_id%><%=data[i].comment_text%>
-                </li>
+                <tr style="font-family: 'Noto Serif KR', serif; font-size: 16px; border-top: 1px solid black">
+                    <td style="width: 105px; font-weight: bold;"><%=data[i].user_id%></td><td><%=data[i].comment_text%></td>
+                </tr>
             <%}%>
-        </ul>
+            </table>
 
         <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=a5f46b36eb244a5f47ad016651c7a4a1&libraries=services"></script>
         <script>
             let addr = "<%=data[0].address%>";
             let name = "<%=data[0].rest_name%>"
-            console.log(addr);
+            //console.log(addr);
 
             var mapContainer = document.getElementById('map'),
             mapOption = {
                 center: new kakao.maps.LatLng(33.450701, 126.570667),
-                level: 4
+                level: 3
             };   
+            
             var map = new kakao.maps.Map(mapContainer, mapOption); 
+            map.setMapTypeId(kakao.maps.MapTypeId.HYBRID)
 
             var geocoder = new kakao.maps.services.Geocoder();
             geocoder.addressSearch(addr, function(result, status) {
                 if (status === kakao.maps.services.Status.OK) {
                     var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
                     
-                    console.log(result[0].y, result[0].x)
+                    //console.log(result[0].y, result[0].x)
 
                     var marker = new kakao.maps.Marker({
                         map: map,
