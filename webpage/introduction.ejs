@@ -19,14 +19,20 @@
         <%let ratio2 = 102 - ratio%>
         <%let st = "width: " + ratio + "px"%>
         <%let st2 = "width: " + ratio2 + "px"%>
-        <div id="title" style="font-family: 'Do Hyeon', sans-serif; font-size:30px"><%=data[0].rest_name%></div>
-        <div>
-            <div class ="star" style="<%=st%>"><img id="star_1" src="image/Star.png"></div>
-            <div class ="star" style="transform: scaleX(-1); <%=st2%>"><img id="star_2" src="image/Star_2.png"></div>
-            <div style="font-family: 'Do Hyeon', sans-serif; font-size:20px; margin-left: 105px;"><%=data[0].star%>점</div>
+        <div id="title" style="font-family: 'Do Hyeon', sans-serif; font-size:45px; width:1000px; height:65px">
+            <div style="float:left"><%=data[0].rest_name%></div>
+            <form style="margin-left:620px" action ="/again" method ="get">
+                <input type = 'image' src="image/SearchButton_3.png" style="width:321x; height: 60px">
+            </form>
         </div>
+        
         <!--식당 사진, 지도-->
         <div style="width:1000px">
+            <div>
+                <div class ="star" style="<%=st%>"><img id="star_1" src="image/Star.png"></div>
+                <div class ="star" style="transform: scaleX(-1); <%=st2%>"><img id="star_2" src="image/Star_2.png"></div>
+                <div style="font-family: 'Do Hyeon', sans-serif; font-size:20px; margin-left: 105px;"><%=data[0].star%>점</div>
+            </div>
             <img src="<%=data[0].image%>" onerror='this.src ="image/temp.jpg"' style="width:300px; height:300px">
             <div id="map" style="float:right; width:380px;height:380px;"></div>
         </div>

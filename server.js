@@ -30,13 +30,11 @@ app.get("/main", function(request, response){
 })
 
 let result = '';
-
-
+let lunch_time ='';
+let lunch_price ='';
 app.post("/random", function(request, response){
     let t = request.body.time;
     let p = request.body.price;
-    let lunch_time ='';
-    let lunch_price ='';
     //console.log('lunch time is ' + t);
     //console.log('lunch price is ' + p);
     if(t == 0){
@@ -54,13 +52,27 @@ app.post("/random", function(request, response){
 
     let sql = 'select distinct r.rest_name from (select * from restaurant where ' + lunch_time + ') as r, (select * from menu where ' + lunch_price + ') as m where r.rest_name = m.rest_name';
     //let result = ''
-    let outcome =[]; 
     connection.query(sql, function(err, results, fields){
         if(err){
             console.error('error connecting: ' + err.stack);
         }
         let rand = Math.floor(Math.random() * results.length);
         result = results[rand]['rest_name'];
+        response.redirect("/introduction");
+    })
+});
+
+app.get("/again", function(request, response){
+    let sql = 'select distinct r.rest_name from (select * from restaurant where ' + lunch_time + ') as r, (select * from menu where ' + lunch_price + ') as m where r.rest_name = m.rest_name';
+    //console.log(lunch_time);
+    //console.log(lunch_price);
+    connection.query(sql, function(err, results, fields){
+        if(err){
+            console.error('error connecting: ' + err.stack);
+        }
+        let rand = Math.floor(Math.random() * results.length);
+        result = results[rand]['rest_name'];
+        //response.send(lunch_time + lunch_price + results);
         response.redirect("/introduction");
     })
 });
