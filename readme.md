@@ -1,7 +1,7 @@
 # Lunch Tech: 점심 식당 추천🍚
 **18101197 김상민 프로젝트**
 
-<img src="/webpage/image/main4.png" width="800" height="500">
+<img src="/webpage/image/main4.png">
 
 학교에 나오는 날이면 항상 식당에서 먹게 되는 점심, 저는 항상 학교 근처의 수백개나 되는 식당 사이에서 고민에 빠지고 맙니다. 3년 사이에 학교 주변의 어지간한 식당은 이미 다 가 봤고, 결국 발걸음은 항상 가던 곳으로 향하게 됩니다.  
 매일 어디서 뭘 먹을지 결정하는 일은 누구에게나 상당한 스트레스고 꽤나 시간을 잡아먹는 과정입니다. 그렇기 때문에, 마침내 내린 결정을 통해 먹은 음식이 별로일 때는 화가 나 버립니다.
@@ -26,7 +26,8 @@
 
 ## ⚙로컬에서 사이트 켜는 법
 1. [MySQL 사이트](https://dev.mysql.com/downloads/windows/installer/8.0.html)에서 MySQL Community Server를 다운받습니다.  
-<img src="/webpage/image/mysql.png" width="600" height="200">  
+
+<img src="/webpage/image/mysql.png">  
 
 2. 설치하는 과정에서 만든 계정을 server.js의 해당 코드에 입력합니다.  
 3. 설치된 mysql workbench에서 Server > Data import로 l_tech.sql 파일을 데이터베이스에 추가합니다.
