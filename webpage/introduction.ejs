@@ -13,7 +13,7 @@
     <body>
         <header><!--로고-->
             <form action ="/main" method ="get"><input type= "image" src="image/Logo_4.png" style="height:50px; width:300px"></form>
-        </header><hr>
+        </header><hr style="margin-left:0; width:1000px">
         <!--식당 이름, 별점-->
         <%let ratio = (data[0].star*20)%>
         <%let ratio2 = 102 - ratio%>
@@ -62,7 +62,7 @@
                 </td></tr></table> 
             <%}%>
         
-        <hr><!--댓글-->
+        <!--댓글-->
         <div style="font-family: 'Hahmlet', serif; font-size: 20px;">댓글</div>
         <form action="/comment" method="post">
             <input type="hidden" name="rest_name" value="<%=data[0].rest_name%>">
@@ -70,15 +70,21 @@
             <input type="text" name="text" value="" size="58">
             <input type="submit" value="등록">
         </form>
-        <table> 
+        <hr style="margin-left:0; width:600px">
+        <table style="border-collapse: collapse"> 
             <%for(i ; i < data.length ; i++) {%>
                 <%if (!('comment_text' in data[i])) break;%>
-                <tr style="font-family: 'Noto Serif KR', serif; font-size: 16px">
-                    <td style="width: 105px; font-weight: bold;"><%=data[i].user_id%></td><td><%=data[i].comment_text%></td>
+                <tr style="border-bottom: 1px solid rgba(0, 0, 0, 0.209); font-family: 'Noto Serif KR', serif; font-size: 16px">
+                    <td style="width: 105px; font-weight: bold;"><%=data[i].user_id%></td><td style="width: 450px"><%=data[i].comment_text%></td>
+                    <td><form action ="/delete" method="post">
+                        <input type="hidden" name="id" value="<%=data[i].id%>">
+                        <input type="submit" value="삭제">
+                    </form></td>
                 </tr>
             <%}%>
             </table>
 
+<!--카카오맵-->
         <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=a5f46b36eb244a5f47ad016651c7a4a1&libraries=services"></script>
         <script>
             let addr = "<%=data[0].address%>";

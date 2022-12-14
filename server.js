@@ -119,7 +119,7 @@ app.get("/introduction", function(request, response){
             //response.render(__dirname + "/webpage/introduction.ejs", {data : outcome});
         })
 
-        sql = 'select * from comment where rest_name = "' + result + '"';
+        sql = 'select * from comment where rest_name = "' + result + '"';//comment table 가져오기
         connection.query(sql, function(err, results, fields){
             if(err){console.error('error connecting: ' + err.stack);}
             for(let i=0; i<results.length; i++){
@@ -138,6 +138,18 @@ app.get("/introduction", function(request, response){
 app.post("/comment", function(request, response){
     
     connection.query('insert into comment (rest_name, user_id, comment_text) values (?, ?, ?)',[request.body.rest_name,request.body.name,request.body.text] , function(err, results, fields){
+        if(err){console.error('error connecting: ' + err.stack);}
+
+    
+        //response.render(__dirname + "/webpage/introduction.ejs", {data : outcome});
+
+        response.redirect("/introduction");
+    })
+});
+
+app.post("/delete", function(request, response){
+    
+    connection.query('delete from comment where id=' + request.body.id , function(err, results, fields){
         if(err){console.error('error connecting: ' + err.stack);}
 
     
